@@ -12,6 +12,8 @@ def getSoup(url, parser):
         doc = url.read()
     return BeautifulSoup(doc, parser)
 
+# def getMetaData(url):
+    
 
 def getOkList(soup, isPC = 1):
     okListTime = []
@@ -22,6 +24,7 @@ def getOkList(soup, isPC = 1):
         okList = p.findall(soup.find_all("script")[-1].text) #PC:0, Mobile:-1
     okListTime = list(map(lambda x: datetime.strptime(x, '%Y/%m/%d %H:%M:%S'), okList ))
     return okListTime
+  
 
 
 def getMemoList(soup):
@@ -55,5 +58,5 @@ def getMemoList(soup):
             memoList.append(date)
 #             date = memo['date']
 #             memoData[date] = [int(memo['ok']), int(memo['nok'])]
-    return (bestTime, bObTime, memoList)
+    return memoList
 #     json.loads(memo_soup.text)['memos']

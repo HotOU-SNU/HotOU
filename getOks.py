@@ -2,7 +2,7 @@ import numpy as np
 from Crawling_Utils import *
 import time
 
-article_no = np.random.randint(226700, 288325, size=100)
+article_no = np.random.randint(226700, 288325, size=200)
 
 dbForOk = dict()
 start = time.time()
