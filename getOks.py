@@ -1,5 +1,5 @@
 import numpy as np
-from Crawling_Utils import *
+from Utils import *
 import time
 
 article_no = np.random.randint(226700, 288325, size=200)
