@@ -8,7 +8,7 @@ from datetime import datetime
 def getSoup(url, parser):
     hdr = {'User-Agent':'Mozilla/5.0'}
     req = urllib.request.Request(url,headers=hdr)
-    with urllib.request.urlopen(req) as url:
+    with urllib.request.urlopen(req, timeout=5) as url:
         doc = url.read()
     return BeautifulSoup(doc, parser)
 
