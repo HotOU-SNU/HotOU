@@ -26,17 +26,19 @@ def getOkList(soup, isPC = 1):
     return okListTime
   
 
-
-def getMemoList(soup):
-    script = soup.find_all("script")
+def getMemoList(soup, isPC = 1):
     p = re.compile('parent_table = ".*?"')
-    p = p.search(script[0].text)
-    parent_table = script[0].text[p.start():p.end()]
+    if isPC:
+        script = soup.find_all("script")[0]     #PC:0, Mobile:-1
+    else:
+        script = soup.find_all("script")[-1]    #PC:0, Mobile:-1
+    p = p.search(script.text)
+    parent_table = script.text[p.start():p.end()]
     parent_table = parent_table[16:-1]
 
     p = re.compile('parent_id = ".*?"')
-    p = p.search(script[0].text)
-    parent_id = script[0].text[p.start():p.end()]
+    p = p.search(script.text)
+    parent_id = script.text[p.start():p.end()]
     parent_id = parent_id[13:-1]
     memo_url = "/board/ajax_memo_list.php?parent_table=" + parent_table + "&parent_id=" + parent_id;
     memo_url = 'http://www.todayhumor.co.kr' + memo_url
@@ -62,3 +64,39 @@ def getMemoList(soup):
 #             memoData[date] = [int(memo['ok']), int(memo['nok'])]
     return (bestTime, BoBTime, memoList)
 #     json.loads(memo_soup.text)['memos']
+
+#def getMemoList(soup):
+#    script = soup.find_all("script")
+#    p = re.compile('parent_table = ".*?"')
+#    p = p.search(script[0].text)
+#    parent_table = script[0].text[p.start():p.end()]
+#    parent_table = parent_table[16:-1]
+#
+#    p = re.compile('parent_id = ".*?"')
+#    p = p.search(script[0].text)
+#    parent_id = script[0].text[p.start():p.end()]
+#    parent_id = parent_id[13:-1]
+#    memo_url = "/board/ajax_memo_list.php?parent_table=" + parent_table + "&parent_id=" + parent_id;
+#    memo_url = 'http://www.todayhumor.co.kr' + memo_url
+##     print(memo_url)
+#
+#    memo_soup =  getSoup(memo_url, "html.parser")
+##     memoData = dict()
+#    memoList = []
+#    memos = json.loads(memo_soup.text)['memos']
+#    bestTime = 0
+#    BoBTime  = 0
+#    for memo in memos:
+#        if 'MOVE_HUMORBEST' in memo['memo']:
+#            #bestTime = datetime.strptime(memo['date'], '%Y-%m-%d %H:%M:%S')
+#            bestTime = memo['date']
+#        elif 'MOVE_BESTOFBEST' in memo['memo']:
+#            #BoBTime = datetime.strptime(memo['date'], '%Y-%m-%d %H:%M:%S')
+#            BoBTime = memo['date']
+#        else:
+#            date = datetime.strptime(memo['date'], '%Y-%m-%d %H:%M:%S')
+#            memoList.append(date)
+##             date = memo['date']
+##             memoData[date] = [int(memo['ok']), int(memo['nok'])]
+#    return (bestTime, BoBTime, memoList)
+##     json.loads(memo_soup.text)['memos']
