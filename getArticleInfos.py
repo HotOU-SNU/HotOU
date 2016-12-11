@@ -252,9 +252,17 @@ def getArticleInfos_m(soup):
     texts = viewContent.find_all("div")
 
     textData = []
-    for text in texts :
-        if (text.text) :
-            textData.append(text.text)
+    if soup.find_all("img", {"src":"images/list_icon_mobile.gif"}) :
+        textData.append(viewContent.findAll)
+        for a in viewContent.findAll('br'):
+            if a.nextSibling.strip() : 
+                textData.append(a.nextSibling)
+    else :
+        texts = viewContent.find_all("div")
+        for text in texts :
+            newtext = text.text.replace("&nbsp", "").strip()
+            if (newtext) :
+                textData.append(newtext)
 
     imgCount = len(imgs)   # 이미지 카운트
     videoCount = len(videos)   # 움짤 카운트
