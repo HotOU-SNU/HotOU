@@ -181,7 +181,7 @@ def getArticleInfos_m(soup):
         writerProfileURLSuffix = writerInfoContents.find("span", class_="view_writer").find("a")["href"]
         writerProfileURL = baseURL + writerProfileURLSuffix
         writerProfileReq = urllib.request.Request(writerProfileURL,headers=hdr)
-        writerProfileDoc = urllib.request.urlopen(writerProfileReq).read()
+        writerProfileDoc = urllib.request.urlopen(writerProfileReq, timeout=5).read()
         writerProfileSoup = BeautifulSoup(writerProfileDoc, "html.parser")  
 
         normalPostCount = writerProfileSoup.find("span", class_="list_no").text      # 유저가 쓴 글 개수
@@ -190,7 +190,7 @@ def getArticleInfos_m(soup):
         writerProfileBOBURL = writerProfileURL + '&member_kind=bestofbest'
 
         writerProfileReq = urllib.request.Request(writerProfileBestURL,headers=hdr)
-        writerProfileDoc = urllib.request.urlopen(writerProfileReq).read()
+        writerProfileDoc = urllib.request.urlopen(writerProfileReq, timeout=5).read()
         writerProfileSoup = BeautifulSoup(writerProfileDoc, "html.parser")  
 
         bestPostCount = 0
@@ -199,7 +199,7 @@ def getArticleInfos_m(soup):
             bestPostCount = best_list_no.text           # 유저가 쓴 베스트 개수
 
         writerProfileReq = urllib.request.Request(writerProfileBOBURL,headers=hdr)
-        writerProfileDoc = urllib.request.urlopen(writerProfileReq).read()
+        writerProfileDoc = urllib.request.urlopen(writerProfileReq, timeout=5).read()
         writerProfileSoup = BeautifulSoup(writerProfileDoc, "html.parser")  
 
         BOBPostCount = 0
