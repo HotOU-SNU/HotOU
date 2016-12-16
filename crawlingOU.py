@@ -12,8 +12,9 @@ boards = {
     'freeboard': [1221155, 1437159],
     'star': [343816, 308818],
     'beauty': [40137, 92137],
+    'love': [1, 18084],
     'bestofbest':[227000, 290075]
-}    
+}
 
 #article_no = np.random.randint(643000, 814061, size=10000)
 #article_no = [673581] # left user
